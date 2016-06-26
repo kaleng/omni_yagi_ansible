@@ -1,0 +1,28 @@
+---
+- hosts: servers
+  roles:
+  - shorewall
+  - create_admin_users
+  - securessh
+  - check_mk_agent
+
+- hosts: omni
+  vars: 
+    network_ipv4_main: 195.54.164.202
+    network_ipv4_add: 195.54.164.204
+    network_ipv6_main: 2001:67c:20a0:a::2
+  roles:
+    - ccc_network
+    - shorewall_masquerade
+    - ip_on_boot
+
+- hosts: yagi
+  vars:
+    network_ipv4_main: 195.54.164.203
+    network_ipv4_add: 195.54.164.205
+    network_ipv6_main: 2001:67c:20a0:a::3
+  roles:
+    - ccc_network
+    - shorewall_masquerade
+    - ip_on_boot
+

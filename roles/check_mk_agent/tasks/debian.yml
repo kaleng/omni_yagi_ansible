@@ -1,0 +1,17 @@
+---
+
+- fail: msg="debian.yml called for non debian system"
+  when: ansible_distribution != "Debian"
+
+# wheezy
+- name: install packages on Debian Wheezy
+  apt: name={{ item }} state=present
+  with_items:
+  - check-mk-agent
+  - sudo
+  when: ansible_distribution_release == "wheezy"
+
+# jessie
+- include: jessie.yml
+  when: ansible_distribution_release == "jessie"
+

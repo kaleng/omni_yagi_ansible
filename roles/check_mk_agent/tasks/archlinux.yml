@@ -1,0 +1,8 @@
+---
+
+- name: install packages on Archlinux
+  pacman: name={{ item }} state=present
+  with_items:
+  - sudo
+
+- include: copy_agent.yml

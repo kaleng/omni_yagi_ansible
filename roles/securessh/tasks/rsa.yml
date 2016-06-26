@@ -1,0 +1,25 @@
+---
+
+- name: get rsa key length
+  shell: '/usr/bin/ssh-keygen -lf /etc/ssh/ssh_host_rsa_key | cut -c 1-4'
+  register: rsa_key_length
+  changed_when: rsa_key_length.stdout != "4096"
+  always_run: yes
+
+- name: generate 4096 bit rsa keys
+  command: "/usr/bin/ssh-keygen -q -b 4096 -t rsa -N '' -f /etc/ssh/ssh_host_rsa_4096_key"
+  when: rsa_key_length.stdout != "4096"
+  register: new_rsa_key_generated
+
+- stat:
+    path: "/etc/ssh/ssh_host_rsa_4096_{{ item }}"
+  with_items:
+  - "key"
+  - "key.pub"
+  register: v_stat
+
+- name: move new keys to default location
+  command: "mv /etc/ssh/ssh_host_rsa_4096_{{ item.item }} /etc/ssh/ssh_host_rsa_{{ item.item }}"
+  with_items: '{{ v_stat.results }}'
+  when: "item.stat.exists and not item.stat.islnk"
+

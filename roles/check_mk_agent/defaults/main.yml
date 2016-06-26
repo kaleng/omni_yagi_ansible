@@ -1,0 +1,4 @@
+---
+check_mk_agent_user: "monitoring"
+check_mk_agent_ssh_keys: []
+

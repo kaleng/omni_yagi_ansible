@@ -1,0 +1,4 @@
+#INTERFACE    SOURCE         ADDRESS 
+INLINE(eth2)  0.0.0.0/0      {{ network_ipv4_main }} ;  -m statistic --mode random --probability 0.50
+eth2          0.0.0.0/0      {{ network_ipv4_add }}
+

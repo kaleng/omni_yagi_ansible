@@ -1,0 +1,15 @@
+auto eth2
+iface eth2 inet static
+  address {{ network_ipv4_main }}
+  netmask 255.255.255.248
+  gateway 195.54.164.201
+
+iface eth2 inet6 static
+  address {{ network_ipv6_main }}
+  netmask 64
+  gateway 2001:67c:20a0:a::1
+
+auto eth2:1 
+iface eth2:1 inet static
+  address {{ network_ipv4_add }}
+  netmask 255.255.255.248 

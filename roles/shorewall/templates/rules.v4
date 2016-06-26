@@ -1,0 +1,26 @@
+#ACTION         SOURCE                          DEST                    PROTO   DEST    SOURCE          ORIGINAL        RATE            USER/   MARK    CONNLIMIT       TIME         HEADERS         SWITCH
+#                                                                               PORT    PORT(S)         DEST            LIMIT           GROUP
+#SECTION ALL
+SECTION ESTABLISHED
+#######
+# p2p #
+#######
+# place p2p restrictions here
+REJECT:info:p2p all                             all                     ipp2p   edk,kazaa,gnu,dc,bit,apple,winmx,soul,ares,mute,waste,xdcc
+
+#SECTION RELATED
+SECTION NEW
+
+############
+# general  #
+############
+#REJECT:info    net:172.16.0.0/12               domU
+# icmp
+ACCEPT          all                             all                     icmp
+
+#Backbone-VPN
+ACCEPT          all                             $FW                     tcp,udp     655
+ACCEPT          all                             $FW                     tcp,udp     10000
+
+# ssh
+SSH(ACCEPT)     all                             all                     -       -       -               -               1/sec:3

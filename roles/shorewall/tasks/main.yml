@@ -1,0 +1,17 @@
+- name: Installing shorewall Package
+  apt: name=shorewall state=present
+- name: Installing shorewall6 Package
+  apt: name=shorewall6 state=present
+- name: Installing xtables-addons
+  apt: name=xtables-addons-dkms state=present
+- template: src=templates/interfaces.v4 dest=/etc/shorewall/interfaces 
+- template: src=templates/policy dest=/etc/shorewall/policy
+- template: src=templates/zones.v4 dest=/etc/shorewall/zones
+- template: src=templates/rules.v4 dest=/etc/shorewall/rules
+- name: Enable IPv4 Forwarding 
+  lineinfile: dest=/etc/shorewall/shorewall.conf regexp=^IP_FORWARDING= line=IP_FORWARDING=Yes
+- name: Do not Log martions
+  lineinfile: dest=/etc/shorewall/shorewall.conf regexp=^LOG_MARTIANS= line=LOG_MARTIANS=No
+- name: Enable shorewall on Boot
+  lineinfile: dest=/etc/default/shorewall regexp=^startup= line=startup=1  
+

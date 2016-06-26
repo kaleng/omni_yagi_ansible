@@ -1,0 +1,22 @@
+---
+- name: ensure /usr/local/bin/ exists
+  file:
+    dest: "/usr/local/bin/"
+    owner: root
+    state: directory
+
+- name: add modified check_mk_agent binary
+  copy:
+    dest: "/usr/local/bin/check_mk_agent"
+    src: check_mk_agent.linux
+    owner: root
+    group: root
+    mode: 0755
+    force: yes
+
+- name: link check_mk_agent from /usr/bin/
+  file:
+    src: "/usr/local/bin/check_mk_agent"
+    dest: "/usr/bin/check_mk_agent"
+    state: link
+

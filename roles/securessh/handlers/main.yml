@@ -1,0 +1,8 @@
+---
+# handlers file for bettercryptossh
+
+- name: sshrestart
+  service: name=ssh state=restarted
+
+- name: sshrestart_arch
+  service: name=sshd state=restarted

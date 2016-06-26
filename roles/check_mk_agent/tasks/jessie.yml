@@ -1,0 +1,19 @@
+---
+
+- name: install packages on Debian Jessie
+  apt: name={{ item }} state=present
+  with_items:
+  - sudo
+
+- name: add jessie-backports repository
+  apt_repository:
+    repo: "deb http://http.debian.net/debian jessie-backports main"
+    update_cache: yes
+    state: present
+
+- name: install check-mk-agent from jessie-backports
+  apt:
+    name: "check-mk-agent"
+    default_release: "jessie-backports"
+    state: present
+

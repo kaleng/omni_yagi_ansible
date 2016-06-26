@@ -1,0 +1,32 @@
+- name: Check sudo installed
+  apt: name=sudo state=present
+- name: Group sudo needs no password
+  lineinfile: "dest=/etc/sudoers regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL' validate='visudo -cf %s'"
+
+- name: Create .ssh-key-Direcotry for dropbear
+  file: path=/etc/initramfs-tools/root/.ssh/authorized_keys.d state=directory owner=root mode=700
+
+
+- name: Create one user per SSH-key
+  user: name={{ item | basename}} shell=/bin/bash groups=sudo
+  with_fileglob:
+  - ssh_keys/*
+
+- name: Create .ssh-Direcotry
+  file: path=/home/{{ item | basename }}/.ssh/ state=directory owner={{ item | basename  }} mode=700
+  with_fileglob:
+  - ssh_keys/*
+
+- name: Copy ssh-key to user home
+  copy: src={{ item }} dest=/home/{{ item | basename }}/.ssh/authorized_keys owner={{ item | basename  }} mode=600
+  with_fileglob:
+  - ssh_keys/*
+
+- name: Copy ssh-key to Dropbear directory
+  copy: src={{ item }} dest=/etc/initramfs-tools/root/.ssh/authorized_keys.d/{{ item | basename}} owner=root mode=600
+  with_fileglob:
+  - ssh_keys/*
+
+- name: Merge SSH-Keys for dropbear
+  assemble: src=/etc/initramfs-tools/root/.ssh/authorized_keys.d dest=/etc/initramfs-tools/root/.ssh/authorized_keys owner=root mode=600
+  notify: update initramfs  

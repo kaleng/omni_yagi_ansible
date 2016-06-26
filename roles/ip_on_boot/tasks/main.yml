@@ -1,0 +1,6 @@
+---
+- name: Configuring {{ network_ipv4_main }} on boot
+  lineinfile: dest=/etc/default/grub regexp=^GRUB_CMDLINE_LINUX_DEFAULT= line=GRUB_CMDLINE_LINUX_DEFAULT="quiet ip={{network_ipv4_main}}::195.54.164.201:255.255.255.248:omni:eth2:none"
+  notify:
+  - update grub
+

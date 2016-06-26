@@ -1,0 +1,12 @@
+###############################################################################
+#SOURCE DEST    POLICY          LOG     LIMIT:          CONNLIMIT:
+#                               LEVEL   BURST           MASK
+$FW     net     ACCEPT
+
+bbone   all     ACCEPT
+all     bbone   ACCEPT
+
+vpn     net     ACCEPT
+
+all     all     REJECT
+

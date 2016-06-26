@@ -1,0 +1,4 @@
+---
+
+securessh_port: 22
+securessh_root_login: 'without-password'
