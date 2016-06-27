@@ -4,4 +4,4 @@ SSH-Keys sind häufig personenbezogene Informationen, die an dieser Stelle nicht
 
 ## Note 
 
-SSH-Keys is individual-related datas. It is not published here. 
+SSH keys are individual-related data. The data is not published here. 
