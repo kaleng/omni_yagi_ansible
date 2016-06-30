@@ -5,6 +5,8 @@
   - create_admin_users
   - securessh
   - check_mk_agent
+  - smartmontools
+  - common
 
 - hosts: omni
   vars: 

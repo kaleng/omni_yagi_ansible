@@ -1,7 +1,7 @@
-net     eth0            detect          blacklist,tcpflags,routefilter=1,logmartians=1
-net     eth1            detect          blacklist,tcpflags,routefilter=1,logmartians=1
-net     eth2            detect          blacklist,tcpflags,routefilter=1,logmartians=1
-net     eth3            detect          blacklist,tcpflags,routefilter=1,logmartians=1
+net     eth0            detect          blacklist,tcpflags,routefilter=1,logmartians=0
+net     eth1            detect          blacklist,tcpflags,routefilter=1,logmartians=0
+net     eth2            detect          blacklist,tcpflags,routefilter=1,logmartians=0
+net     eth3            detect          blacklist,tcpflags,routefilter=1,logmartians=0
 bbone   tinc+           detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
 vpn     tap-fastd+      detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
 
