@@ -1,0 +1,3 @@
+[submodule "roles/fastd-exit"]
+	path = roles/fastd-exit
+	url = https://github.com/yanosz/fastd-exit.git

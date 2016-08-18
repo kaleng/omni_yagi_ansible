@@ -1,5 +1,6 @@
 ---
 - hosts: servers
+  sudo: yes
   roles:
   - shorewall
   - create_admin_users
@@ -7,7 +8,7 @@
   - check_mk_agent
   - smartmontools
   - common
-
+  - fastd-exit
 - hosts: omni
   vars: 
     network_ipv4_main: 195.54.164.202

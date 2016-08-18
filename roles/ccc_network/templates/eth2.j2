@@ -1,8 +1,10 @@
 auto eth2
-iface eth2 inet static
-  address {{ network_ipv4_main }}
-  netmask 255.255.255.248
-  gateway 195.54.164.201
+
+# IPv4 is handled by a kernel parameter
+#iface eth2 inet static
+#  address {{ network_ipv4_main }}
+#  netmask 255.255.255.248
+#  gateway 195.54.164.201
 
 iface eth2 inet6 static
   address {{ network_ipv6_main }}

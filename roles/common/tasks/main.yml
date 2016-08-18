@@ -21,7 +21,7 @@
   - tmux
   - mosh
   - needrestart
-
+  - apt-transport-https
 - name: place default git config for root
   template:
     src: gitconfig
