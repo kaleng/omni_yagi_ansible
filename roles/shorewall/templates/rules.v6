@@ -1,14 +1,7 @@
 #ACTION         SOURCE                          DEST                    PROTO   DEST    SOURCE          ORIGINAL        RATE            USER/   MARK    CONNLIMIT       TIME         HEADERS         SWITCH
 #                                                                               PORT    PORT(S)         DEST            LIMIT           GROUP
-#SECTION ALL
 ?SECTION ESTABLISHED
-#######
-# p2p #
-#######
-# place p2p restrictions here
-REJECT:info:p2p all                             all                     ipp2p   edk,kazaa,gnu,dc,bit,apple,winmx,soul,ares,mute,waste,xdcc
 
-#SECTION RELATED
 ?SECTION NEW
 
 ############
@@ -22,7 +15,9 @@ ACCEPT          all                             all                     icmp
 ACCEPT          all                             $FW                     tcp,udp     655
 ACCEPT          net                             $FW                     udp     10000
 
-# Block incoming DNS from WAN - we're not your DNS-Attack-Service
+# Allow delegated IPv6-Space
+ACCEPT          vpn:<{{ delegation_range }}>     net     -       -       -       -       -
+
 
 # ssh
 SSH(ACCEPT)     all                             all                     -       -       -               -               1/sec:3

@@ -1,31 +1,55 @@
 ---
 - hosts: servers
-  sudo: yes
+  vars:
+    fastd_bind: 
+    - any port 10000 interface "eth2"
+    fastd_on_verify:
+      command: true
+      mode: sync
   roles:
-  - shorewall
-  - create_admin_users
-  - securessh
-  - check_mk_agent
-  - smartmontools
-  - common
-  - fastd-exit
+    - common
+    - fastd-exit
+    - create_admin_users
+    - securessh
+    - check_mk_agent
+    - smartmontools
 - hosts: omni
   vars: 
     network_ipv4_main: 195.54.164.202
     network_ipv4_add: 195.54.164.204
     network_ipv6_main: 2001:67c:20a0:a::2
+    masq_range: 172.26.0.0/16
+    delegation_range: 2001:67C:20A0:B100::/56
+    tap_vpn_interfaces:
+      fastd-exit:
+        ipv6: 2001:67C:20A0:B100::1
+        ipv4: 172.26.32.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.26.32.10
+        dhcp_end: 172.16.26.61.254
   roles:
+    - tap-router-exit
     - ccc_network
     - shorewall_masquerade
     - ip_on_boot
-
+    - shorewall 
 - hosts: yagi
   vars:
+    masq_range: 172.26.0.0/16
+    delegation_range: fe80::/64 
     network_ipv4_main: 195.54.164.203
     network_ipv4_add: 195.54.164.205
     network_ipv6_main: 2001:67c:20a0:a::3
+    tap_vpn_interfaces:
+      fastd-exit:
+        ipv6: fdb2:5b8b:3633::1
+        ipv4: 172.26.64.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.26.64.10
+        dhcp_end: 172.26.95.254
   roles:
+    - tap-router-exit
     - ccc_network
     - shorewall_masquerade
     - ip_on_boot
-
+    - shorewall 
