@@ -1,3 +1,8 @@
 ---
 - name: "Main ip address configuration"
   template: src=templates/eth2.j2 dest=/etc/network/interfaces.d/eth2 mode=0644
+- name: "Additional 6to4 network"
+  template: src=templates/tun6to4.j2 dest=/etc/network/interfaces.d/tun6to4 mode=0644
+
+
+

@@ -4,7 +4,7 @@
     fastd_bind: 
     - any port 10000 interface "eth2"
     fastd_on_verify:
-      command: true
+      command: 'true'
       mode: sync
   roles:
     - common
@@ -18,35 +18,73 @@
     network_ipv4_main: 195.54.164.202
     network_ipv4_add: 195.54.164.204
     network_ipv6_main: 2001:67c:20a0:a::2
+    network_ipv6_6to4: 2002:c336:a4ca::1
     masq_range: 172.26.0.0/16
     delegation_range: 2001:67C:20A0:B100::/56
     tap_vpn_interfaces:
       fastd-exit:
-        ipv6: 2001:67C:20A0:B100::1
+        ipv6: fd84:9d34:7e43:1::1
         ipv4: 172.26.32.1
         ipv4_netmask: 255.255.224.0
         dhcp_start: 172.26.32.10
-        dhcp_end: 172.16.26.61.254
-  roles:
-    - tap-router-exit
-    - ccc_network
-    - shorewall_masquerade
-    - ip_on_boot
-    - shorewall 
-- hosts: yagi
-  vars:
-    masq_range: 172.26.0.0/16
-    delegation_range: fe80::/64 
-    network_ipv4_main: 195.54.164.203
-    network_ipv4_add: 195.54.164.205
-    network_ipv6_main: 2001:67c:20a0:a::3
-    tap_vpn_interfaces:
-      fastd-exit:
-        ipv6: fdb2:5b8b:3633::1
+        dhcp_end: 172.26.61.254
+        dhcpv6_prefix: 2002:c336:a4ca:8000::/49
+        dhcpv6_prefix_slice: 59
+      ovpn-exit:
+        ipv6: fd84:9d34:7e43:2::1
         ipv4: 172.26.64.1
         ipv4_netmask: 255.255.224.0
         dhcp_start: 172.26.64.10
         dhcp_end: 172.26.95.254
+        dhcpv6_prefix: 2002:c336:a4ca:4000::/51
+        dhcpv6_prefix_slice: 59
+      ovpn-tcp-exit:
+        ipv6: fd84:9d34:7e43:3::1
+        ipv4: 172.26.96.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.26.96.10
+        dhcp_end: 172.26.127.254
+        dhcpv6_prefix: 2002:c336:a4ca:6000::/51
+        dhcpv6_prefix_slice: 59
+  roles:
+   - tap-router-exit
+   - ccc_network
+   - shorewall_masquerade
+   - ip_on_boot
+   - shorewall 
+- hosts: yagi
+  vars:
+    masq_range: 172.27.0.0/16
+    delegation_range: fe80::/64 
+    network_ipv4_main: 195.54.164.203
+    network_ipv4_add: 195.54.164.205
+    network_ipv6_main: 2001:67c:20a0:a::3
+    network_ipv6_6to4: 2002:c336:a4cb::1 
+    tap_vpn_interfaces:
+      fastd-exit:
+        ipv6: fd02:315:daf9:1::1
+        ipv4: 172.27.32.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.27.32.10
+        dhcp_end: 172.27.63.254
+        dhcpv6_prefix: 2002:c336:a4cb:8000::/49
+        dhcpv6_prefix_slice: 59
+      ovpn-exit:
+        ipv6: fd02:315:daf9:2::1
+        ipv4: 172.27.64.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.27.64.10
+        dhcp_end: 172.27.95.254
+        dhcpv6_prefix: 2002:c336:a4cb:4000::/51
+        dhcpv6_prefix_slice: 59
+      ovpn-tcp-exit:
+        ipv6: fd02:315:daf9:3::1
+        ipv4: 172.27.96.1
+        ipv4_netmask: 255.255.224.0
+        dhcp_start: 172.27.96.10
+        dhcp_end: 172.27.127.254
+        dhcpv6_prefix: 2002:c336:a4cb:6000::/51
+        dhcpv6_prefix_slice: 59
   roles:
     - tap-router-exit
     - ccc_network

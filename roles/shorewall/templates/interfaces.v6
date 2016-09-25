@@ -1,7 +1,8 @@
+net     tun6to4         detect          tcpflags,forward=1,nosmurfs
 net     eth0            detect          
 net     eth1            detect          
 net     eth2            detect          
 net     eth3            detect          
 bbone   tinc+           detect          routeback
 vpn     fastd+          detect          routeback
-
+vpn     ovpn+          detect          routeback

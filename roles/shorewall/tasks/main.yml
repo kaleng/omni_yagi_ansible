@@ -9,6 +9,7 @@
 - template: src=templates/policy.v4 dest=/etc/shorewall/policy
 - template: src=templates/zones.v4 dest=/etc/shorewall/zones
 - template: src=templates/rules.v4 dest=/etc/shorewall/rules
+- template: src=templates/tunnels.v4 dest=/etc/shorewall/tunnels
 - name: Enable IPv4 Forwarding 
   lineinfile: dest=/etc/shorewall/shorewall.conf regexp=^IP_FORWARDING= line=IP_FORWARDING=Yes
 - name: Do not Log martions
@@ -20,6 +21,7 @@
 - template: src=templates/policy.v6 dest=/etc/shorewall6/policy
 - template: src=templates/zones.v6 dest=/etc/shorewall6/zones
 - template: src=templates/rules.v6 dest=/etc/shorewall6/rules
+
 - name: Enable IPv6 Forwarding
   lineinfile: dest=/etc/shorewall6/shorewall6.conf regexp=^IP_FORWARDING= line=IP_FORWARDING=Yes
 - name: Enable shorewall6 on Boot

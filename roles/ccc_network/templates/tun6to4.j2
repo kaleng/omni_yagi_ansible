@@ -1,0 +1,11 @@
+auto tun6to4
+iface tun6to4 inet6 static
+        address {{ network_ipv6_6to4 }}
+        #address 2002:c336:a4ca::1
+        netmask 16
+        pre-up ip tunnel add tun6to4 mode sit ttl 255 remote any local {{  network_ipv4_main }}
+        up ip -6 route add default via ::192.88.99.1 dev tun6to4 metric 1 table 66
+        up ip -6 rule add from 2002::/16 lookup 66
+        down ip -6 rule del 2002::/16 lookup 66
+        post-down ip tunnel del tun6to4
+

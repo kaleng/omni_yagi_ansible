@@ -4,3 +4,6 @@
 [submodule "roles/tap-router-exit"]
 	path = roles/tap-router-exit
 	url = https://github.com/yanosz/tap-router-exit.git
+[submodule "roles/openvpn-exit"]
+	path = roles/openvpn-exit
+	url = git@github.com:yanosz/freifunk-openvpn-exit.git

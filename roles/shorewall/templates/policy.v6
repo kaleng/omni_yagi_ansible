@@ -1,12 +1,13 @@
 ###############################################################################
 #SOURCE DEST    POLICY          LOG     LIMIT:          CONNLIMIT:
 #                               LEVEL   BURST           MASK
-$FW     net     ACCEPT
+$FW     all     ACCEPT
 
 bbone   all     ACCEPT
 all     bbone   ACCEPT
 
 vpn     net     REJECT # Allow delegated space only - explicit rule needed
+vpn     $FW     ACCEPT 
 
 all     all     REJECT
 
