@@ -26,3 +26,12 @@ ACCEPT          net                             $FW                     udp     
 
 # ssh
 SSH(ACCEPT)     all                             all                     -       -       -               -               1/sec:3
+
+# Incoming pptp-vpn
+ACCEPT          net                             $FW                     tcp     1723    -               -               1/sec:3
+ACCEPT          net                             $FW                     gre
+
+# Incoming openvpn
+ACCEPT          net                             $FW                     tcp     443     -               -               1/sec:3
+ACCEPT          net                             $FW                     udp     1194    -               -               1/sec:3
+

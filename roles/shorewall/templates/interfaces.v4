@@ -2,6 +2,7 @@ net     eth0            detect          blacklist,tcpflags,routefilter=1,logmart
 net     eth1            detect          blacklist,tcpflags,routefilter=1,logmartians=0
 net     eth2            detect          blacklist,tcpflags,routefilter=1,logmartians=0
 net     eth3            detect          blacklist,tcpflags,routefilter=1,logmartians=0
-bbone   tinc+           detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
+bbone   backbone        detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
 vpn     fastd+          detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
 vpn     ovpn+           detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0
+vpn     ppp+           detect          blacklist,tcpflags,routeback,routefilter=0,logmartians=0

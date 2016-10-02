@@ -7,12 +7,14 @@
       command: 'true'
       mode: sync
   roles:
-    - common
-    - fastd-exit
-    - create_admin_users
-    - securessh
-    - check_mk_agent
-    - smartmontools
+    #- common
+    #- fastd-exit
+    #- create_admin_users
+    #- securessh
+    #- check_mk_agent
+    #- smartmontools
+    - backuppc
+
 - hosts: omni
   vars: 
     network_ipv4_main: 195.54.164.202
@@ -21,6 +23,22 @@
     network_ipv6_6to4: 2002:c336:a4ca::1
     masq_range: 172.26.0.0/16
     delegation_range: 2001:67C:20A0:B100::/56
+    kbu_backbone:
+      ipv4: 172.27.255.3/24
+      ipv6: fdd3:5d16:b5dd:3::3/64
+    openvpn_exit:
+      1194_udp:
+        port: 1194
+        dev: ovpn-exit
+        proto: udp
+        cert: omni.freifunk-koeln.de.crt
+        ca: ca.crt
+      443_tcp:
+        port: 443
+        dev: ovpn-tcp-exit
+        proto: tcp-server
+        cert: omni.freifunk-koeln.de.crt
+        ca: ca.crt
     tap_vpn_interfaces:
       fastd-exit:
         ipv6: fd84:9d34:7e43:1::1
@@ -47,11 +65,13 @@
         dhcpv6_prefix: 2002:c336:a4ca:6000::/51
         dhcpv6_prefix_slice: 59
   roles:
-   - tap-router-exit
-   - ccc_network
-   - shorewall_masquerade
-   - ip_on_boot
-   - shorewall 
+    #- tap-router-exit
+    #- ccc_network
+    #- shorewall_masquerade
+    #- ip_on_boot
+   - shorewall
+    #- openvpn-exit   
+   - kbu.backbone     
 - hosts: yagi
   vars:
     masq_range: 172.27.0.0/16
@@ -60,6 +80,22 @@
     network_ipv4_add: 195.54.164.205
     network_ipv6_main: 2001:67c:20a0:a::3
     network_ipv6_6to4: 2002:c336:a4cb::1 
+    kbu_backbone:
+      ipv4: 172.27.255.4/24
+      ipv6: fdd3:5d16:b5dd:3::4/64
+    openvpn_exit:
+      1194_udp:
+        port: 1194
+        dev: ovpn-exit
+        proto: udp
+        cert: yagi.freifunk-koeln.de.crt
+        ca: ca.crt
+      443_tcp:
+        port: 443
+        dev: ovpn-tcp-exit
+        proto: tcp-server
+        cert: yagi.freifunk-koeln.de.crt
+        ca: ca.crt
     tap_vpn_interfaces:
       fastd-exit:
         ipv6: fd02:315:daf9:1::1
@@ -86,8 +122,10 @@
         dhcpv6_prefix: 2002:c336:a4cb:6000::/51
         dhcpv6_prefix_slice: 59
   roles:
-    - tap-router-exit
-    - ccc_network
-    - shorewall_masquerade
-    - ip_on_boot
+    #- tap-router-exit
+    #- ccc_network
+    #- shorewall_masquerade
+    #- ip_on_boot
     - shorewall 
+    #- openvpn-exit
+    - kbu.backbone

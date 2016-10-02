@@ -3,6 +3,7 @@ net     eth0            detect
 net     eth1            detect          
 net     eth2            detect          
 net     eth3            detect          
-bbone   tinc+           detect          routeback
+bbone   backbone        detect          routeback
 vpn     fastd+          detect          routeback
 vpn     ovpn+          detect          routeback
+vpn     ppp+          detect          routeback
