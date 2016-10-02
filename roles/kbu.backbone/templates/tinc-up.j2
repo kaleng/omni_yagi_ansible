@@ -1,0 +1,12 @@
+#!/bin/sh
+/sbin/ip addr add {{ kbu_backbone.ipv4 }} dev $INTERFACE
+/sbin/ip link set dev $INTERFACE up
+
+
+# IPv6
+## VPN-Addresses (local)
+/sbin/ip -6 addr add {{ kbu_backbone.ipv6 }} dev $INTERFACE
+
+
+
+/etc/init.d/nagios-nrpe-server restart

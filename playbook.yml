@@ -7,12 +7,12 @@
       command: 'true'
       mode: sync
   roles:
-    #- common
-    #- fastd-exit
-    #- create_admin_users
-    #- securessh
-    #- check_mk_agent
-    #- smartmontools
+    - common
+    - fastd-exit
+    - create_admin_users
+    - securessh
+    - check_mk_agent
+    - smartmontools
     - backuppc
 
 - hosts: omni
@@ -23,6 +23,13 @@
     network_ipv6_6to4: 2002:c336:a4ca::1
     masq_range: 172.26.0.0/16
     delegation_range: 2001:67C:20A0:B100::/56
+    accel_ppp_exit:
+      ipv4: 
+        gateway_ip: 172.26.128.1
+        client_pool: 172.26.129.0/24
+      ipv6:
+        ppp_links: fd2f:3bfe:9136::/48,64
+        delegate: 2001:67C:20A0:B100::/56,61
     kbu_backbone:
       ipv4: 172.27.255.3/24
       ipv6: fdd3:5d16:b5dd:3::3/64
@@ -65,13 +72,14 @@
         dhcpv6_prefix: 2002:c336:a4ca:6000::/51
         dhcpv6_prefix_slice: 59
   roles:
-    #- tap-router-exit
-    #- ccc_network
-    #- shorewall_masquerade
-    #- ip_on_boot
-   - shorewall
-    #- openvpn-exit   
-   - kbu.backbone     
+    - tap-router-exit
+    - ccc_network
+    - shorewall_masquerade
+    - ip_on_boot
+    - shorewall
+    - openvpn-exit   
+    - kbu.backbone
+    - accel-pptp-exit     
 - hosts: yagi
   vars:
     masq_range: 172.27.0.0/16
@@ -80,6 +88,13 @@
     network_ipv4_add: 195.54.164.205
     network_ipv6_main: 2001:67c:20a0:a::3
     network_ipv6_6to4: 2002:c336:a4cb::1 
+    accel_ppp_exit:
+      ipv4:
+        gateway_ip: 172.27.128.1
+        client_pool: 172.27.129.0/24
+      ipv6:
+        ppp_links: fd8e:12c0:a393::/48,64
+        delegate: 2002:c336:a4cb:8000::/51,61
     kbu_backbone:
       ipv4: 172.27.255.4/24
       ipv6: fdd3:5d16:b5dd:3::4/64
@@ -122,10 +137,11 @@
         dhcpv6_prefix: 2002:c336:a4cb:6000::/51
         dhcpv6_prefix_slice: 59
   roles:
-    #- tap-router-exit
-    #- ccc_network
-    #- shorewall_masquerade
-    #- ip_on_boot
+    - tap-router-exit
+    - ccc_network
+    - shorewall_masquerade
+    - ip_on_boot
     - shorewall 
-    #- openvpn-exit
+    - openvpn-exit
     - kbu.backbone
+    - accel-ppp-exit
