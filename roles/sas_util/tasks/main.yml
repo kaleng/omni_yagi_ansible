@@ -1,0 +1,9 @@
+- name: Copying sas-utility 
+  copy: 
+    src: sas_util
+    dest: /usr/local/bin/cfggen
+    owner: root
+    group: root
+    mode: 0755
+      
+

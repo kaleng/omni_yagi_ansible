@@ -8,6 +8,7 @@
       mode: sync
   roles:
     - common
+    - sas_util
     - fastd-exit
     - create_admin_users
     - securessh
@@ -79,7 +80,6 @@
     - shorewall
     - openvpn-exit   
     - kbu.backbone
-    - accel-pptp-exit     
 - hosts: yagi
   vars:
     masq_range: 172.27.0.0/16
@@ -144,4 +144,3 @@
     - shorewall 
     - openvpn-exit
     - kbu.backbone
-    - accel-ppp-exit
