@@ -1,0 +1,5 @@
+fastd_bind: 
+- any port 10000 interface "eth2"
+fastd_on_verify:
+  command: 'true'
+  mode: sync

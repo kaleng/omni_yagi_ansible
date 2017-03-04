@@ -1,0 +1,51 @@
+network_ipv4_main: 195.54.164.202
+network_ipv4_add: 195.54.164.204
+network_ipv6_main: 2001:67c:20a0:a::2
+network_ipv6_6to4: 2002:c336:a4ca::1
+masq_range: 172.26.0.0/16
+delegation_range: 2001:67C:20A0:B100::/56
+accel_ppp_exit:
+  ipv4: 
+    gateway_ip: 172.26.128.1
+    client_pool: 172.26.129.0/24
+  ipv6:
+    ppp_links: fd2f:3bfe:9136::/48,64
+    delegate: 2001:67C:20A0:B100::/56,61
+kbu_backbone:
+  ipv4: 172.27.255.3/24
+  ipv6: fdd3:5d16:b5dd:3::3/64
+openvpn_exit:
+  1194_udp:
+    port: 1194
+    dev: ovpn-exit
+    proto: udp
+    cert: omni.freifunk-koeln.de.crt
+    ca: ca.crt
+  443_tcp:
+    port: 443
+    dev: ovpn-tcp-exit
+    proto: tcp-server
+    cert: omni.freifunk-koeln.de.crt
+    ca: ca.crt
+tap_vpn_interfaces:
+  fastd-exit:
+    ipv6: fd84:9d34:7e43:1::1
+    ipv4: 172.26.32.1
+    ipv4_netmask: 255.255.224.0
+    dhcp_start: 172.26.32.10
+    dhcp_end: 172.26.61.254
+    dhcpv6_prefix: 2002:c336:a4ca:8000::/49
+    dhcpv6_prefix_slice: 59
+  ovpn-exit:
+    ipv6: fd84:9d34:7e43:2::1
+    ipv4: 172.26.64.1
+    ipv4_netmask: 255.255.224.0
+    dhcp_start: 172.26.64.10
+    dhcp_end: 172.26.95.254
+    dhcpv6_prefix: 2002:c336:a4ca:4000::/51
+    dhcpv6_prefix_slice: 59
+  ovpn-tcp-exit:
+    ipv6: fd84:9d34:7e43:3::1
+    ipv4: 172.26.96.1
+    ipv4_netmask: 255.255.224.0
+

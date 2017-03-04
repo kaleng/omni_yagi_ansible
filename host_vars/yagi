@@ -1,0 +1,51 @@
+masq_range: 172.27.0.0/16
+delegation_range: fe80::/64 
+network_ipv4_main: 195.54.164.203
+network_ipv4_add: 195.54.164.205
+network_ipv6_main: 2001:67c:20a0:a::3
+network_ipv6_6to4: 2002:c336:a4cb::1 
+accel_ppp_exit:
+  ipv4:
+    gateway_ip: 172.27.128.1
+    client_pool: 172.27.129.0/24
+  ipv6:
+    ppp_links: fd8e:12c0:a393::/48,64
+    delegate: 2002:c336:a4cb:8000::/51,61
+kbu_backbone:
+  ipv4: 172.27.255.4/24
+  ipv6: fdd3:5d16:b5dd:3::4/64
+openvpn_exit:
+  1194_udp:
+    port: 1194
+    dev: ovpn-exit
+    proto: udp
+    cert: yagi.freifunk-koeln.de.crt
+    ca: ca.crt
+  443_tcp:
+    port: 443
+    dev: ovpn-tcp-exit
+    proto: tcp-server
+    cert: yagi.freifunk-koeln.de.crt
+    ca: ca.crt
+tap_vpn_interfaces:
+  fastd-exit:
+    ipv6: fd02:315:daf9:1::1
+    ipv4: 172.27.32.1
+    ipv4_netmask: 255.255.224.0
+    dhcp_start: 172.27.32.10
+    dhcp_end: 172.27.63.254
+    dhcpv6_prefix: 2002:c336:a4cb:8000::/49
+    dhcpv6_prefix_slice: 59
+  ovpn-exit:
+    ipv6: fd02:315:daf9:2::1
+    ipv4: 172.27.64.1
+    ipv4_netmask: 255.255.224.0
+    dhcp_start: 172.27.64.10
+    dhcp_end: 172.27.95.254
+    dhcpv6_prefix: 2002:c336:a4cb:4000::/51
+    dhcpv6_prefix_slice: 59
+  ovpn-tcp-exit:
+    ipv6: fd02:315:daf9:3::1
+    ipv4: 172.27.96.1
+    ipv4_netmask: 255.255.224.0
+
